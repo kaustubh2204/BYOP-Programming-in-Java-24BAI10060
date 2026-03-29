@@ -1,14 +1,16 @@
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 import java.io.*;
 import java.time.LocalDate;
 import javax.swing.*;
-import java.wing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 public class TaskMang extends JFrame
 {
-  private static String FILE_NAME="C:\Users\kstbh\OneDrive\Desktop\tasks.dat";
-  private static List<Tasks> tasks;
+  private static String FILE_NAME="C:\\Users\\kstbh\\OneDrive\\Desktop\\tasks.dat";
+  private static java.util.List<Task> tasks;
   private DefaultTableModel tableModel;
-  private JTable tasktable;
+  private JTable taskTable;
   private JTextField titleField, subjectField, dateField;
   
   public TaskMang()
@@ -22,20 +24,20 @@ public class TaskMang extends JFrame
     setSize(700,500);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLayout(new BorderLayout(10,10));
-    JPanel input=new JPanel(new GridLayout(2,4,5,5);
+    JPanel input=new JPanel(new GridLayout(2,4,5,5));
     input.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
     titleField=new JTextField();
     subjectField=new JTextField();
     dateField=new JTextField(LocalDate.now().toString());
-    input.add(new Jlabel("Task Title:"));
+    input.add(new JLabel("Task Title:"));
     input.add(new JLabel("Subject:"));
     input.add(new JLabel("Due Date(YYYY-MM-DD):"));
-    input.add(new Jlabel(""));
+    input.add(new JLabel(""));
     input.add(titleField);
     input.add(subjectField);
-    input.add(dateFiled);
+    input.add(dateField);
     JButton addButton=new JButton("Add Task");
-    addButton.addActionListener(e->addTask);
+    addButton.addActionListener(e->addTask());
     input.add(addButton);
 
     String[] col={"Status","Title","Subject","Due Date"};
@@ -73,12 +75,13 @@ public class TaskMang extends JFrame
         JOptionPane.showMessageDialog(this,"Please enetr valid details and YYYY-MM-DD format.");
       }
   }
+
   private void markComplete()
   {
     int selectedRow=taskTable.getSelectedRow();
     if(selectedRow!=-1)
     {
-      tasks.get(selectedRow).markAsComplete();
+      tasks.get(selectedRow).markAsCompleted();
       refreshTable();
     }
     else
@@ -88,11 +91,11 @@ public class TaskMang extends JFrame
   }
   private void refreshTable()
   {
-    table.Model.setRowCount(0);
+    tableModel.setRowCount(0);
     for(Task t:tasks)
       {
         Object[] row={
-          t.isCompleted()?"[Done]":"[Pending]".
+          t.isCompleted()?"[Done]":"[Pending]",
           t.getTitle(),
           t.getSubject(),
           t.getDueDate(),
@@ -113,7 +116,7 @@ public class TaskMang extends JFrame
         oos.writeObject(tasks);
       }catch (IOException e)
       {
-        JOption.showMessageDialog(this, "Error saving data");
+        JOptionPane.showMessageDialog(this, "Error saving data");
       }
   }
   @SuppressWarnings("unchecked")

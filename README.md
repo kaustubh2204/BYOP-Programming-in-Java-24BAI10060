@@ -64,8 +64,11 @@ To *mark a task* as finished, select the row in the table and click Complete Tas
 Click *Save Data* before exiting to ensure your changes are kept.
 
 **Author:** Kaustubh Upadhyay
+
 **Registration Number:** 24BAI10060
+
 **Slot:** A21+A22
+
 **Course:** Programming in Java
 
 **Project Date:** 29 March 2026

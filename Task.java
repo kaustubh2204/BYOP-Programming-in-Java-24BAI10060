@@ -37,6 +37,6 @@ public class Task implements Serializable
     public String toString()
     {
       String status=isCompleted ? "[Done]" : "[Pending]";
-      return String.format("%s %s |Subject: %s | Due: %s", status, title, subject, dueDate):
+      return String.format("%s %s |Subject: %s | Due: %s", status, title, subject, dueDate);
     }
   }
